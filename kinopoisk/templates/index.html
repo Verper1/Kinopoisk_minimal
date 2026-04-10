@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Главная страница</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'kinopoisk/styles.css' %}">
+    </head>
+    <body>
+        {% if not movies %}
+            <h1>Пока фильмов нет</h1>
+            <a href="{% url 'add_movie' %}">+ Добавить фильм</a>
+            <button type="button"><a href="{% url 'main_page' %}">На главную</a></button>
+        {% else %}
+            <form method="get">
+                <input type="text" name="genre" placeholder="Жанр" value="{{ request.GET.genre }}">
+                <input type="number" name="min_rating" placeholder="Мин. рейтинг" step="0.1" value="{{ request.GET.min_rating }}">
+                <input type="number" name="year_of_publishing" placeholder="Год" value="{{ request.GET.year_of_publishing }}">
+                <button type="submit">Фильтровать</button>
+            </form>
+            <form method="get">
+                <input type="text" name="search" placeholder="Название или описание" value="{{ request.GET.search }}">
+                <button type="submit">Искать</button>
+            </form>
+
+            <a href="{% url 'add_movie' %}">Добавить фильм</a>
+
+            <table>
+                <caption>Все фильмы</caption>
+                <thead>
+                    <tr>
+                        <th>Обложка</th>
+                        <th>Название </th>
+                        <th>Описание</th>
+                        <th>Год издания</th>
+                        <th>Рейтинг</th>
+                        <th>Жанр</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movie in movies %}
+                        <tr>
+                            <td>
+                                {% if movie.cover %}
+                                    <img src="{{ movie.cover.url }}" alt="{{ movie.title }}" class="cover-img">
+                                {% endif %}
+                            </td>
+                            <td><a href="{% url 'movie_page' movie.pk %}"><strong>{{ movie.title }}</strong></a></td>
+                            <td>{{ movie.description }}</td>
+                            <td>{{ movie.year_of_publishing }}</td>
+                            <td>⭐ {{ movie.rating }}</td>
+                            <td>{{ movie.get_genre_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </body>
+</html>

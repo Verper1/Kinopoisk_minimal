@@ -1,0 +1,63 @@
+body {
+    font-family: sans-serif;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+form, h1, caption {
+    padding: 8px;
+}
+
+table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table th, table td {
+    border: none;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table th {
+    background: #f0f0f0;
+}
+
+a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+button a {
+    color: inherit;
+}
+
+textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    white-space: pre-wrap;   /* перенос строк */
+    word-wrap: break-word;   /* перенос длинных слов */
+    resize: vertical;        /* можно растягивать только по высоте */
+}
+
+/* Ограничиваем размер обложек */
+.cover-img {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Контейнер фильма */
+.movie-container img {
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+}

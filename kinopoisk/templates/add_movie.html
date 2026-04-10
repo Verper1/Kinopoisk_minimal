@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Добавить фильм</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'kinopoisk/styles.css' %}">
+    </head>
+    <body>
+        <h1>Добавление нового фильма</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Добавить</button>
+        </form>
+
+        <a href="{% url 'main_page' %}">Назад</a>
+    </body>
+</html>

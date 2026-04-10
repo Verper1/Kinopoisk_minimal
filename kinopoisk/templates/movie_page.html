@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ movie.title }}</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'kinopoisk/styles.css' %}">
+    </head>
+    <body>
+        <div class="movie-container">
+            {% if movie.cover %}
+                <img src="{{ movie.cover.url }}" alt="{{ movie.title }}">
+            {% endif %}
+        </div>
+
+        <h1>{{ movie.title }}</h1>
+        <p>{{ movie.description }}</p>
+        <p>Год: {{ movie.year_of_publishing }}</p>
+        <p>Рейтинг: ⭐ {{ movie.rating }}</p>
+        <p>Жанр: {{ movie.get_genre_display }}</p>
+
+        <button type="button"><a href="{% url 'main_page' %}">На главную</a></button>
+    </body>
+</html>
