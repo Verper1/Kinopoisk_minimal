@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Главная страница</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'kinopoisk/styles.css' %}">
+    </head>
+    <body>
+        {% if not movies %}
+            <h1>Пока фильмов нет или фильмы не подходят под параметры запроса.</h1>
+            <a href="{% url 'add_movie' %}">+ Добавить фильм</a><br>
+            <button type="button"><a href="{% url 'main_page' %}">На главную</a></button>
+        {% else %}
+            <form method="get">
+                {{ form.as_p }}
+                <button type="submit">Искать</button>
+            </form>
+
+            <a href="{% url 'add_movie' %}">Добавить фильм</a>
+
+            <table>
+                <caption>Все фильмы</caption>
+                <thead>
+                    <tr>
+                        <th>Обложка</th>
+                        <th>Название </th>
+                        <th>Описание</th>
+                        <th>Год издания</th>
+                        <th>Рейтинг</th>
+                        <th>Жанр</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movie in movies %}
+                        <tr>
+                            <td>
+                                {% if movie.cover %}
+                                    <img src="{{ movie.cover.url }}" alt="{{ movie.title }}" class="cover-img">
+                                {% endif %}
+                            </td>
+                            <td><a href="{% url 'movie_page' movie.pk %}"><strong>{{ movie.title }}</strong></a></td>
+                            <td>{{ movie.description }}</td>
+                            <td>{{ movie.year_of_publishing }}</td>
+                            <td>⭐ {{ movie.rating }}</td>
+                            <td>{{ movie.get_genre_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </body>
+</html>
