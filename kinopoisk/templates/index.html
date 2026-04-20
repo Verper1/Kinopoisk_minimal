@@ -8,18 +8,12 @@
     </head>
     <body>
         {% if not movies %}
-            <h1>Пока фильмов нет</h1>
-            <a href="{% url 'add_movie' %}">+ Добавить фильм</a>
+            <h1>Пока фильмов нет или фильмы не подходят под параметры запроса.</h1>
+            <a href="{% url 'add_movie' %}">+ Добавить фильм</a><br>
             <button type="button"><a href="{% url 'main_page' %}">На главную</a></button>
         {% else %}
             <form method="get">
-                <input type="text" name="genre" placeholder="Жанр" value="{{ request.GET.genre }}">
-                <input type="number" name="min_rating" placeholder="Мин. рейтинг" step="0.1" value="{{ request.GET.min_rating }}">
-                <input type="number" name="year_of_publishing" placeholder="Год" value="{{ request.GET.year_of_publishing }}">
-                <button type="submit">Фильтровать</button>
-            </form>
-            <form method="get">
-                <input type="text" name="search" placeholder="Название или описание" value="{{ request.GET.search }}">
+                {{ form.as_p }}
                 <button type="submit">Искать</button>
             </form>
 
